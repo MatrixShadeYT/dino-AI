@@ -1,3 +1,5 @@
 playwright
 selenium
 time
+PIL
+io
