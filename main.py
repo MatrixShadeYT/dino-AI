@@ -11,6 +11,7 @@ options = Options()
 options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
+
 def movements(key=0):
     if key == 1:
         ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
@@ -19,16 +20,20 @@ def movements(key=0):
     else:
         ActionChains(driver).send_keys(Keys.SPACE).perform()
     return
+def screenshot():
+    bytes = driver.get_screenshot_as_png()
+    image = Image.open(BytesIO(bytes))
+    high_score = image.crop((1010,170,1110,195))
+    curr_score = image.crop((1010,170,1300,195))
+    map = image.crop((450,200,1200,400))
+    return [image,high_score,curr_score,map]
+
 sleep(1)
 movements()
-sleep(1)
-bytes = driver.get_screenshot_as_png()
-image = Image.open(BytesIO(bytes))
-for x in range(100):
-    for y in range(25):
-        image.putpixel([1100+x,170+y],value=(0,255,0))
-for x in range(750):
-    for y in range(200):
-        image.putpixel([450+x,200+y],value=(0,0,255))
-image.show()
+while True:
+    sleep(5)
+    break
+img = screenshot()
 driver.quit()
+img[1].show()
+img[2].show()
