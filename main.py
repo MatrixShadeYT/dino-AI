@@ -18,7 +18,7 @@ driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
 data = save.get() if os.path.exists("data.json") else ""
 network = AI.create_network(240001,[2,8],3) if data == "" else data
-new_network = AI.mutate_network(network)
+new_network = AI.mutate(network)
 frames = 1
 
 def movements(key=0):
