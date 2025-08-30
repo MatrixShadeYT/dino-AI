@@ -10,7 +10,7 @@ def create_network(inputs=default_layer,hidden=[1,default_layer],outputs=default
     return network
 
 def mutate(network,rate=0.1):
-    for key in range(network):
+    for key in range(len(network)):
         network[key] += np.random.randn(*network[key].shape) * rate
     return network
 
