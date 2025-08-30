@@ -16,9 +16,6 @@ options = Options()
 options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
-data = save.get() if os.path.exists("data.json") else ""
-network = AI.create_network(240001,8,3) if data == "" else data
-new_network = AI.mutate(network)
 
 def movements(key=0):
     if key == 1:
@@ -45,13 +42,10 @@ while True:
     listed = list(img[1].getdata())
     extra = [listed[i][z] for i in range(len(listed)) for z in range(3)]
     extra.insert(0,img[3])
-    result = AI.calculate(new_network,img)
-    movements(result)
-    if img[3] > 100:
-        break
+    movements(AI.calculate(extra))
+    break
 
 sleep(1)
 driver.quit()
-save.save(new_network)
 os.system("cls")
 print(f"Current: {img[3]}\nHigh: {img[2]}\n")
