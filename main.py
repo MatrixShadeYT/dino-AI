@@ -19,15 +19,12 @@ driver.get("https://chromedino.com/")
 data = save.get() if os.path.exists("data.json") else ""
 network = AI.create_network(240001,[2,8],3) if data == "" else data
 new_network = AI.mutate(network)
-frames = 1
 
 def movements(key=0):
     if key == 1:
         ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
     elif key == 2:
         ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
-    elif key == 3:
-        ActionChains(driver).send_keys(Keys.SPACE).perform()
 
 def screenshot():
     bytes = driver.get_screenshot_as_png()
@@ -38,13 +35,11 @@ def screenshot():
     return [image,map,int(high_score),int(curr_score)]
 
 sleep(1.5)
-movements(3)
+movements(1)
 sleep(6)
-movements(3)
+movements(1)
 
-x = 0
-while x < frames:
-    x += 1
+while True:
     sleep(0.001)
     img = screenshot()
     listed = list(img[1].getdata())
@@ -52,6 +47,8 @@ while x < frames:
     extra.insert(0,img[3])
     result = AI.calculate(new_network,img)
     movements(result)
+    if img[3] > 100:
+        break
 
 sleep(1)
 driver.quit()
