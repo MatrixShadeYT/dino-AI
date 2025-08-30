@@ -11,7 +11,7 @@ class NeuralNetwork:
         if method == "tanh":
             extra = np.tanh(data)
         elif method == "softmax":
-            x = np.exp(data-np.max(x))
+            x = np.exp(data-np.max(data))
             extra = x/x.sum(axis=0)
         return extra
     # Cross Entropy Loss - probability
