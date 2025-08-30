@@ -6,6 +6,8 @@ from time import sleep
 from io import BytesIO
 from PIL import Image
 import pytesseract
+import save
+import os
 import AI
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -14,6 +16,10 @@ options = Options()
 options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
+data = save.get()
+network = AI.create_network(240001,8,3) if data == "" else data
+new_network = AI.mutate_network(network)
+frames = 1
 
 def movements(key=0):
     if key == 1:
@@ -36,20 +42,19 @@ movements(3)
 sleep(6)
 movements(3)
 
-while True:
+x = 0
+while x < frames:
+    x += 1
     sleep(0.001)
     img = screenshot()
     listed = list(img[1].getdata())
-    listed.insert(0,img[2])
-    listed.insert(1,img[3])
-    print(f"\nList: {img}\n")
-    result = AI.calculate(img)
+    extra = [listed[i][z] for i in range(len(listed)) for z in range(3)]
+    extra.insert(0,img[3])
+    result = AI.calculate(new_network,img)
     movements(result)
-    break
 
 sleep(1)
-img = screenshot()
 driver.quit()
-print(f"\nCurrent: {img[3]}\nHigh: {img[2]}\n")
-alt = img.crop((1110,170,1200,195))
-alt.show()
+save.save(new_network)
+os.system("cls")
+print(f"Current: {img[3]}\nHigh: {img[2]}\n")
