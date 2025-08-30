@@ -37,13 +37,12 @@ sleep(6)
 movements(3)
 
 while True:
-    sleep(0.01)
+    sleep(0.001)
     img = screenshot()
-    listed = [img[2],img[3]]
-    pixels = list(img[1].convert("RGB").getdata())
-    for i in range(pixels):
-        for x in range(pixels[i+1]):
-            listed.append(pixels[i+1])
+    listed = list(img[1].getdata())
+    listed.insert(0,img[2])
+    listed.insert(1,img[3])
+    print(f"\nList: {img}\n")
     result = AI.calculate(img)
     movements(result)
     break
@@ -52,3 +51,5 @@ sleep(1)
 img = screenshot()
 driver.quit()
 print(f"\nCurrent: {img[3]}\nHigh: {img[2]}\n")
+alt = img.crop((1110,170,1200,195))
+alt.show()
