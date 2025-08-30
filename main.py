@@ -23,17 +23,15 @@ def movements(key=0):
 def screenshot():
     bytes = driver.get_screenshot_as_png()
     image = Image.open(BytesIO(bytes))
-    high_score = image.crop((1010,170,1110,195))
-    curr_score = image.crop((1010,170,1300,195))
+    high_score = image.crop((1000,170,1100,195))
+    curr_score = image.crop((1100,170,1200,195))
     map = image.crop((450,200,1200,400))
     return [image,high_score,curr_score,map]
 
-sleep(1)
+sleep(2)
 movements()
 while True:
-    sleep(5)
+    sleep(6)
     break
 img = screenshot()
 driver.quit()
-img[1].show()
-img[2].show()
