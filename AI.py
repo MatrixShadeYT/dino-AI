@@ -15,9 +15,10 @@ def mutate(network,rate=0.1):
     return network
 
 def forward(network,x):
-    h = np.tanh(np.dot(x, network[0]))
-    out = np.dot(h, network[len(network)-1])
-    return np.argmax(out)
+    x = np.dot(x,network[0])
+    for i in range(len(network)):
+        x = np.dot(x,network[i])
+    return np.argmax(x)
 
 def calculate(network,data):
     return forward(network,data)
