@@ -10,14 +10,14 @@ import save
 import os
 import AI
 
+
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 options = Options()
-#options.add_argument("--headless")
 options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
 data = save.get() if os.path.exists("data.json") else ""
-network = AI.create_network(240001,[2,8],3) if data == "" else data
+network = AI.create_network(240001,8,3) if data == "" else data
 new_network = AI.mutate(network)
 
 def movements(key=0):
@@ -29,12 +29,12 @@ def movements(key=0):
 def screenshot():
     bytes = driver.get_screenshot_as_png()
     image = Image.open(BytesIO(bytes))
-    high_score = pytesseract.image_to_string(image.crop((1010,170,1100,195))).upper().replace("O","0").replace("L","")
-    curr_score = pytesseract.image_to_string(image.crop((1110,170,1200,195))).upper().replace("O","0").replace("L","")
+    high_score = pytesseract.image_to_string(image.crop((1010,170,1100,195))).upper().replace("O","0").replace("I","1").replace("L","")
+    curr_score = pytesseract.image_to_string(image.crop((1110,170,1200,195))).upper().replace("O","0").replace("I","1").replace("L","")
     map = image.crop((450,200,850,400))
     return [image,map,int(high_score),int(curr_score)]
 
-sleep(1.5)
+sleep(2)
 movements(1)
 sleep(6)
 movements(1)
