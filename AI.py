@@ -10,6 +10,9 @@ class NeuralNetwork:
     def __activation__(self,data,method):
         if method == "tanh":
             extra = np.tanh(data)
+        elif method == "softmax":
+            x = np.exp(x-np.max(x))
+            extra = x/x.sum(axis=0)
         return extra
     # Cross Entropy Loss - probability
     def cross_entropy_loss(pred,true):
