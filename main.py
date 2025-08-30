@@ -15,6 +15,7 @@ options = Options()
 options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
+Neuron = AI.NeuralNetwork([240001,50,3])
 
 def movements(key=0):
     if key == 1:
@@ -41,8 +42,9 @@ while True:
     listed = list(img[1].getdata())
     extra = [listed[i][z] for i in range(len(listed)) for z in range(3)]
     extra.insert(0,img[3])
-    movements(AI.calculate(extra))
-    break
+    movements(Neuron.forward(extra))
+    if img[3] > 250:
+        break
 
 sleep(1)
 driver.quit()
