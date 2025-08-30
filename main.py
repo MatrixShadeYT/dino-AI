@@ -17,7 +17,7 @@ options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(options=options)
 driver.get("https://chromedino.com/")
 data = save.get()
-network = AI.create_network(240001,8,3) if data == "" else data
+network = AI.create_network(240001,[2,8],3) if data == "" else data
 new_network = AI.mutate_network(network)
 frames = 1
 
