@@ -15,8 +15,8 @@ def mutate(network,rate=0.1):
     return network
 
 def forward(network,x):
-    h = np.tanh(np.dot(x, network["W1"]))
-    out = np.dot(h, network["W2"])
+    h = np.tanh(np.dot(x, network[0]))
+    out = np.dot(h, network[len(network)-1])
     return np.argmax(out)
 
 def calculate(network,data):
