@@ -28,7 +28,7 @@ def movements(key=0):
         ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
     elif key == 3:
         ActionChains(driver).send_keys(Keys.SPACE).perform()
-    return
+
 def screenshot():
     bytes = driver.get_screenshot_as_png()
     image = Image.open(BytesIO(bytes))
