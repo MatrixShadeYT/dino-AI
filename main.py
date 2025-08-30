@@ -10,7 +10,6 @@ import save
 import os
 import AI
 
-
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 options = Options()
 options.add_argument("--disable-gpu")
