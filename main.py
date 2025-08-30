@@ -6,6 +6,7 @@ from time import sleep
 from io import BytesIO
 from PIL import Image
 import pytesseract
+import AI
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 options = Options()
@@ -19,7 +20,7 @@ def movements(key=0):
         ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
     elif key == 2:
         ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
-    else:
+    elif key == 3:
         ActionChains(driver).send_keys(Keys.SPACE).perform()
     return
 def screenshot():
@@ -31,9 +32,9 @@ def screenshot():
     return [image,map,int(high_score),int(curr_score)]
 
 sleep(1.5)
-movements()
+movements(3)
 sleep(6)
-movements()
+movements(3)
 
 while True:
     sleep(0.01)
@@ -43,7 +44,8 @@ while True:
     for i in range(pixels):
         for x in range(pixels[i+1]):
             listed.append(pixels[i+1])
-    AI(img)
+    result = AI.calculate(img)
+    movements(result)
     break
 
 sleep(1)
