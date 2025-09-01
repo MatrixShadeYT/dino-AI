@@ -7,6 +7,9 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 def clean_text(text):
     return text.upper().replace("O","0").replace("I","1").replace("L","").replace("S","5").replace("Z","2")
 
+def resolution(img):
+    return img.resize((img.width//2,img.height//2),Image.LANCZOS)
+
 def screenshot(driver):
     bytes = driver.get_screenshot_as_png()
     image = Image.open(BytesIO(bytes))
